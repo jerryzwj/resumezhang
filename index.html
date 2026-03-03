@@ -496,14 +496,16 @@
         </div>
     </section>
 
-    <!-- 联系方式区 - 优化渐变过渡 -->
+    <!-- 联系方式区 - 三个联系方式放一行 -->
     <section id="contact" class="py-16 px-4">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">合作洽谈 · 技术交流</h2>
-            <div class="max-w-2xl mx-auto bg-tech-dark/80 border border-tech-blue/40 rounded-xl p-8 card-glow">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="max-w-5xl mx-auto bg-tech-dark/80 border border-tech-blue/40 rounded-xl p-8 card-glow">
+                <!-- 三个联系方式一行展示 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- 联系电话 -->
                     <div class="flex items-center">
-                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4">
+                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                             <i class="fa fa-phone text-tech-blue text-xl"></i>
                         </div>
                         <div>
@@ -511,8 +513,9 @@
                             <p class="text-xl font-medium">13016935309</p>
                         </div>
                     </div>
+                    <!-- 电子邮箱 -->
                     <div class="flex items-center">
-                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4">
+                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                             <i class="fa fa-envelope text-tech-blue text-xl"></i>
                         </div>
                         <div>
@@ -520,21 +523,23 @@
                             <p class="text-xl font-medium">admin@wenjun.eu.org</p>
                         </div>
                     </div>
-                    <div class="flex items-center md:col-span-2">
-                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4">
+                    <!-- 微信 -->
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                             <i class="fa fa-weixin text-tech-blue text-xl"></i>
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <div>
                                 <h4 class="text-tech-silver text-sm mb-1">微信/二维码</h4>
-                                <p class="text-xl font-medium">扫码添加微信</p>
+                                <p class="text-xl font-medium">扫码添加</p>
                             </div>
-                            <div class="w-24 h-24 rounded-lg overflow-hidden">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden">
                                 <img src="https://picui.ogmua.cn/s1/2026/03/04/69a710c886e95.webp" alt="微信二维码" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="border-t border-tech-blue/30 pt-6">
                     <h4 class="text-lg font-semibold mb-4">核心业务范围</h4>
                     <div class="flex flex-wrap gap-3 justify-center">
