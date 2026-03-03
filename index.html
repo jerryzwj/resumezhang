@@ -3,691 +3,547 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张文军 - 智能制造技术专家</title>
-    <!-- 外部资源 -->
+    <title>张文军 - 3D打印技术专家 | 增材制造规模化量产</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    <!-- 引入Toastify用于提示弹窗 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- Tailwind 配置 -->
     <script>
+        // 配置Tailwind自定义主题
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF',
-                        secondary: '#0E2B5C',
-                        dark: '#121212',
-                        light: '#F5F7FA',
-                        accent: '#36CFC9',
+                        tech: {
+                            blue: '#0066CC',
+                            dark: '#0A0E17',
+                            silver: '#C0C8D0',
+                            gold: '#FFD700',
+                            light: '#F0F5FF'
+                        }
                     },
                     fontFamily: {
-                        inter: ['Inter', 'system-ui', 'sans-serif'],
-                    },
+                        sans: ['Inter', 'Microsoft YaHei', 'sans-serif']
+                    }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .text-shadow {
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            .text-glow {
+                text-shadow: 0 0 8px rgba(0, 102, 204, 0.8);
             }
-            .bg-gradient-tech {
-                background: linear-gradient(135deg, #165DFF 0%, #0E2B5C 100%);
+            .card-glow {
+                box-shadow: 0 0 15px rgba(0, 102, 204, 0.4);
             }
-            .card-hover {
-                transition: all 0.3s ease;
-            }
-            .card-hover:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 12px 24px rgba(22, 93, 255, 0.15);
-            }
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
+            .bg-grid {
+                background-image: 
+                    linear-gradient(rgba(12, 18, 32, 0.9) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(12, 18, 32, 0.9) 1px, transparent 1px);
+                background-size: 20px 20px;
             }
             .animate-float {
                 animation: float 6s ease-in-out infinite;
             }
             @keyframes float {
-                0% { transform: translateY(0px); }
-                50% { transform: translateY(-15px); }
-                100% { transform: translateY(0px); }
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
             }
-            .download-btn {
-                transition: all 0.3s ease;
+            .timeline-line {
+                background: linear-gradient(to bottom, #0066CC, #C0C8D0);
+                width: 2px;
+                min-height: 100%;
             }
-            .download-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 16px rgba(54, 207, 201, 0.2);
-            }
-            /* 按钮点击反馈 */
-            .btn-click {
-                transition: transform 0.1s ease;
-            }
-            .btn-click:active {
-                transform: scale(0.95);
-            }
-            /* 加载动画 */
-            .loader {
-                border-top-color: #36CFC9;
-                animation: spinner 0.6s linear infinite;
-            }
-            @keyframes spinner {
-                to { transform: rotate(360deg); }
-            }
-            /* 滚动进度条 */
             .progress-bar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 3px;
-                background: #36CFC9;
-                z-index: 1000;
-                transition: width 0.1s ease;
+                height: 8px;
+                background: linear-gradient(to right, #0066CC, #FFD700);
+                border-radius: 4px;
             }
-            /* 表单验证样式 */
-            .input-error {
-                border-color: #ff4444 !important;
+            .product-img-hover {
+                transition: transform 0.3s ease;
             }
-            .input-success {
-                border-color: #36CFC9 !important;
+            .product-img-hover:hover {
+                transform: scale(1.05);
             }
-            .error-text {
-                color: #ff4444;
-                font-size: 0.875rem;
-                margin-top: 0.25rem;
+            /* 新增：页面整体背景渐变 */
+            .bg-global {
+                background: linear-gradient(180deg, #0A0E17 0%, #0C1220 100%);
+                background-attachment: fixed;
             }
-            /* 星空效果 */
-            .stars {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                z-index: 0;
-            }
-            .star {
-                position: absolute;
-                background: white;
-                border-radius: 50%;
-                animation: twinkle infinite ease-in-out;
-            }
-            @keyframes twinkle {
-                0%, 100% {
-                    opacity: 0.3;
-                    transform: scale(0.8);
-                }
-                50% {
-                    opacity: 1;
-                    transform: scale(1);
-                }
+            /* 区块分隔渐变效果 */
+            .section-divider {
+                height: 40px;
+                background: linear-gradient(to bottom, rgba(10, 14, 23, 0.8), rgba(12, 18, 32, 0.05));
+                margin: -1px 0;
             }
         }
     </style>
-    <!-- 预加载字体 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-inter bg-dark text-light scrollbar-hide">
-    <!-- 滚动进度条 -->
-    <div id="progressBar" class="progress-bar w-0"></div>
-    
-    <!-- 全局星空背景 -->
-    <div class="stars fixed inset-0 z-0" id="stars"></div>
-
-    <!-- 导航栏（固定顶部+滚动透明效果） -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-dark/80 backdrop-blur-md">
+<!-- 统一背景色，移除区块间的背景差异 -->
+<body class="bg-global text-white font-sans">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 w-full bg-tech-dark/90 backdrop-blur-md z-50 border-b border-tech-blue/30">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-primary flex items-center">
-                <i class="fa fa-code-fork mr-2"></i>
-                <span>张文军</span>
-                <span class="text-accent text-sm ml-2">技术专家</span>
-            </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="hover:text-primary transition-colors btn-click">关于我</a>
-                <a href="#skills" class="hover:text-primary transition-colors btn-click">技能专长</a>
-                <a href="#experience" class="hover:text-primary transition-colors btn-click">工作经历</a>
-                <a href="#achievements" class="hover:text-primary transition-colors btn-click">荣誉成就</a>
-                <a href="#contact" class="hover:text-primary transition-colors btn-click">联系方式</a>
-                <!-- 桌面端简历下载按钮 -->
-                <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fjerryzwj%2Fresumezhang%2Frefs%2Fheads%2Fmain%2F%25E5%25BC%25A0%25E6%2596%2587%25E5%2586%259B%25E7%25AE%2580%25E5%258E%2586.docx&wdOrigin=BROWSELINK" target="_blank" class="bg-accent hover:bg-accent/90 text-dark font-medium py-1.5 px-4 rounded-full transition-all shadow-lg hover:shadow-accent/30 download-btn btn-click" id="desktopDownload">
-                    <i class="fa fa-download mr-1"></i> 下载简历
-                </a>
+            <h1 class="text-xl md:text-2xl font-bold text-tech-blue text-glow">张文军 · 3D打印技术专家</h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:text-tech-blue transition-colors">关于我</a>
+                <a href="#industry" class="hover:text-tech-blue transition-colors">行业背景</a>
+                <a href="#experience" class="hover:text-tech-blue transition-colors">专业履历</a>
+                <a href="#skills" class="hover:text-tech-blue transition-colors">技术成果</a>
+                <a href="#work-content" class="hover:text-tech-blue transition-colors">核心工作</a>
+                <a href="#product" class="hover:text-tech-blue transition-colors">量产品类</a>
+                <a href="#contact" class="hover:text-tech-blue transition-colors">合作洽谈</a>
             </div>
-            <button class="md:hidden text-2xl btn-click" id="menuBtn">
+            <button class="md:hidden text-white text-xl">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
-        <!-- 移动端菜单 -->
-        <div id="mobileMenu" class="hidden md:hidden bg-secondary/95 backdrop-blur-md absolute w-full">
-            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-                <a href="#about" class="py-2 hover:text-primary transition-colors btn-click">关于我</a>
-                <a href="#skills" class="py-2 hover:text-primary transition-colors btn-click">技能专长</a>
-                <a href="#experience" class="py-2 hover:text-primary transition-colors btn-click">工作经历</a>
-                <a href="#achievements" class="py-2 hover:text-primary transition-colors btn-click">荣誉成就</a>
-                <a href="#contact" class="py-2 hover:text-primary transition-colors btn-click">联系方式</a>
-                <!-- 移动端简历下载按钮 -->
-                <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fjerryzwj%2Fresumezhang%2Frefs%2Fheads%2Fmain%2F%25E5%25BC%25A0%25E6%2596%2587%25E5%2586%259B%25E7%25AE%2580%25E5%258E%2586.docx&wdOrigin=BROWSELINK" target="_blank" class="py-2 bg-accent hover:bg-accent/90 text-dark font-medium rounded-lg px-4 text-center download-btn btn-click" id="mobileDownload">
-                    <i class="fa fa-download mr-1"></i> 下载简历
-                </a>
-            </div>
-        </div>
     </nav>
 
-    <!-- 英雄区（3D 背景+动态文字） -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        <!-- 3D 背景 -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-float"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s"></div>
-            <div class="absolute top-3/4 left-1/3 w-72 h-72 bg-secondary/30 rounded-full blur-3xl animate-float" style="animation-delay: 4s"></div>
-        </div>
-
-        <!-- 内容 -->
-        <div class="container mx-auto px-4 z-10 text-center">
-            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold leading-tight mb-6">
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">张文军</span>
-                <span class="text-[clamp(1.2rem,4vw,2rem)] font-light mt-2 block">智能制造 · 数据分析 · 设备工程</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10">
-                11年技术深耕，精通3D打印工艺、自动化设备运维与数据可视化，专注智能制造落地
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#contact" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-primary/30 btn-click">
-                    联系我
-                </a>
-                <a href="#skills" class="bg-transparent border-2 border-primary text-primary hover:bg-primary/10 font-medium py-3 px-8 rounded-full transition-all btn-click">
-                    查看技能
-                </a>
-                <!-- 英雄区简历下载按钮 -->
-                <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fjerryzwj%2Fresumezhang%2Frefs%2Fheads%2Fmain%2F%25E5%25BC%25A0%25E6%2596%2587%25E5%2586%259B%25E7%25AE%2580%25E5%258E%2586.docx&wdOrigin=BROWSELINK" target="_blank" class="bg-accent hover:bg-accent/90 text-dark font-medium py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-accent/30 download-btn btn-click sm:mt-0 mt-4" id="heroDownload">
-                    <i class="fa fa-download mr-2"></i> 下载简历
-                </a>
+    <!-- 主视觉区域 -->
+    <header class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid opacity-20 z-0"></div>
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
+            <!-- 个人图片 -->
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-xl overflow-hidden border-2 border-tech-blue card-glow animate-float">
+                <img src="https://picui.ogmua.cn/s1/2026/03/04/69a706fe010c4.webp" alt="张文军-3D打印技术专家" class="w-full h-full object-cover">
             </div>
-
-            <!-- 滚动提示 -->
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <a href="#about" class="text-gray-400 hover:text-primary transition-colors btn-click">
-                    <i class="fa fa-chevron-down text-2xl"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 关于我 -->
-    <section id="about" class="py-20 bg-gradient-to-b from-dark/80 to-secondary/50 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">关于我</h2>
-                <div class="w-20 h-1 bg-primary mx-auto"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- 左侧：个人信息 -->
-                <div class="space-y-6">
-                    <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover">
-                        <h3 class="text-2xl font-semibold mb-4 text-primary">基本信息</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fa fa-user-o text-accent mt-1 mr-3"></i>
-                                <span>男 | 34岁 | 大专学历</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa fa-briefcase text-accent mt-1 mr-3"></i>
-                                <span>11年工作经验 | 技术工/操作工</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa fa-map-marker text-accent mt-1 mr-3"></i>
-                                <span>期望城市：苏州</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa fa-money text-accent mt-1 mr-3"></i>
-                                <span>期望薪资：5-10K</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa fa-graduation-cap text-accent mt-1 mr-3"></i>
-                                <span>中央广播电视大学 | 行政管理</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover">
-                        <h3 class="text-2xl font-semibold mb-4 text-primary">职业愿景</h3>
-                        <p class="text-gray-300 leading-relaxed">
-                            专注智能制造领域，结合3D打印技术、自动化设备运维与数据可视化能力，
-                            为企业打造高效、智能的生产体系，助力产业升级与数字化转型。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 右侧：数据可视化（技能分布） -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover">
-                    <h3 class="text-2xl font-semibold mb-6 text-primary text-center">技能分布</h3>
-                    <div class="h-80 relative">
-                        <!-- 加载动画 -->
-                        <div id="chartLoader" class="absolute inset-0 flex items-center justify-center bg-secondary/40 rounded-xl">
-                            <div class="loader w-12 h-12 border-4 border-gray-700 border-t-accent rounded-full"></div>
-                        </div>
-                        <canvas id="skillsChart" class="opacity-0 transition-opacity duration-500"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 技能专长 -->
-    <section id="skills" class="py-20 bg-dark/80 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">技能专长</h2>
-                <div class="w-20 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    多维度技能组合，覆盖制造工艺、数据分析、办公自动化、设备维护四大领域
+            <!-- 标题信息 -->
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-tech-blue to-tech-silver">
+                    张文军
+                </h1>
+                <h2 class="text-xl md:text-2xl font-semibold mb-6 text-glow">
+                    3D打印技术专家 · 增材制造规模化量产研发 | 多品类3D打印落地
+                </h2>
+                <p class="text-tech-silver text-lg mb-8 max-w-lg">
+                    8年+深耕工业级3D打印领域，精通光固化3D打印技术，主导鞋类中底、运动护具、医疗防护品等多品类增材制造规模化量产，实现从工艺调试到百万级产能落地的全链路技术把控。
                 </p>
+                <a href="#contact" class="inline-block bg-tech-blue hover:bg-tech-blue/80 text-white font-medium py-3 px-8 rounded-lg transition-all card-glow">
+                    合作洽谈 <i class="fa fa-arrow-right ml-2"></i>
+                </a>
             </div>
+        </div>
+        <!-- 装饰元素 -->
+        <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-tech-blue/20 rounded-full blur-3xl"></div>
+        <div class="absolute -top-10 -left-10 w-64 h-64 bg-tech-silver/20 rounded-full blur-3xl"></div>
+    </header>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- 技能卡片1：制造工艺 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-t-4 border-primary btn-click">
-                    <div class="text-primary text-4xl mb-4">
-                        <i class="fa fa-cogs"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">制造工艺</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• DLS/SLS 3D打印机全流程工艺</li>
-                        <li>• Carbon3D打印工艺优化</li>
-                        <li>• baumann EPB流水线运维</li>
-                        <li>• 设备精度校准与故障排查</li>
-                        <li>• PLC编程逻辑（西门子/三菱）</li>
-                    </ul>
-                </div>
-
-                <!-- 技能卡片2：数据分析 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-t-4 border-accent btn-click">
-                    <div class="text-accent text-4xl mb-4">
-                        <i class="fa fa-bar-chart"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">数据分析</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• SQL数据库增删改查与复杂查询</li>
-                        <li>• Power BI数据建模与可视化</li>
-                        <li>• Fine BI/Fine Report（帆软认证）</li>
-                        <li>• DAX函数编写与报表设计</li>
-                        <li>• 库存优化与数据驱动决策</li>
-                    </ul>
-                </div>
-
-                <!-- 技能卡片3：办公自动化 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-t-4 border-primary btn-click">
-                    <div class="text-primary text-4xl mb-4">
-                        <i class="fa fa-desktop"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">办公自动化</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• Microsoft Office精通（Excel高级函数）</li>
-                        <li>• PPT复杂排版与报告制作</li>
-                        <li>• Word长文档格式规范化</li>
-                        <li>• Python编程语言基础</li>
-                        <li>• CAD制图（AutoCAD/SolidWorks）</li>
-                    </ul>
-                </div>
-
-                <!-- 技能卡片4：设备维护 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-t-4 border-accent btn-click">
-                    <div class="text-accent text-4xl mb-4">
+    <!-- 核心标签区 - 统一背景，移除差异化背景色 -->
+    <section id="about" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">核心专业标签</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- 标签卡片1 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-6 card-glow hover:border-tech-blue transition-all">
+                    <div class="text-3xl text-tech-blue mb-4">
                         <i class="fa fa-wrench"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">设备维护</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• 电脑硬件维修与系统重装</li>
-                        <li>• 数据恢复与网络配置</li>
-                        <li>• 办公设备（打印机/监控）运维</li>
-                        <li>• 计量工具设备校验与管理</li>
-                        <li>• 设备档案建立与维护日志</li>
+                    <h3 class="text-xl font-semibold mb-2">光固化打印技术专家</h3>
+                    <p class="text-tech-silver">精通光固化3D打印设备调试与工艺优化，适配规模化量产需求</p>
+                </div>
+                <!-- 标签卡片2 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-6 card-glow hover:border-tech-blue transition-all">
+                    <div class="text-3xl text-tech-blue mb-4">
+                        <i class="fa fa-industry"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">增材制造量产专家</h3>
+                    <p class="text-tech-silver">实现百万级3D打印产品规模化生产，掌握全流程量产技术</p>
+                </div>
+                <!-- 标签卡片3 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-6 card-glow hover:border-tech-blue transition-all">
+                    <div class="text-3xl text-tech-blue mb-4">
+                        <i class="fa fa-cubes"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">多品类打印研发者</h3>
+                    <p class="text-tech-silver">覆盖鞋中底、运动护具、医疗防护品等多品类3D打印落地</p>
+                </div>
+                <!-- 标签卡片4 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-6 card-glow hover:border-tech-blue transition-all">
+                    <div class="text-3xl text-tech-blue mb-4">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">标准化工艺搭建者</h3>
+                    <p class="text-tech-silver">制定3D打印量产SOP，实现工艺标准化、可复制化</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行业背景区 - 统一背景 -->
+    <section id="industry" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">3D打印增材制造行业背景</h2>
+            <div class="max-w-4xl mx-auto bg-tech-dark/80 border border-tech-blue/20 rounded-xl p-8 card-glow">
+                <div class="space-y-6 text-tech-silver">
+                    <p class="text-lg">
+                        增材制造技术正从实验室走向工业化量产，鞋中底是全球首个实现百万级规模的消费终端3D打印产品，行业头部企业正推动3D打印技术向运动护具、医疗防护、汽车配件等多领域延伸。
+                    </p>
+                    <p class="text-lg">
+                        工业级3D打印核心采用<span class="text-tech-gold font-medium">大尺寸超高速光固化技术</span>，基于数字光合成（DLS）原理，以0.1mm高精度层厚实现快速成型，设备可365天不间断量产，搭配标准化后处理工艺，成为目前最成熟的增材制造规模化量产方案。
+                    </p>
+                    <p class="text-lg">
+                        全球头部企业已布局多基地、多技术、多品类的增材制造网络，拥有超过5种增材制造技术、10种以上3D打印材料成型工艺，实现欧洲、美洲、亚洲三地协同量产，年产出超200万件3D打印产品，技术应用覆盖运动、医疗、汽车等多个领域。
+                    </p>
+                    <p class="text-lg mt-4">
+                        我的工作核心围绕工业级光固化3D打印规模化量产展开，深度参与光固化打印设备的工艺落地与多品类产品的量产研发，实现从技术调试到百万级产能的全链路落地。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业履历区 - 统一背景 -->
+    <section id="experience" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">专业履历</h2>
+            <div class="max-w-3xl mx-auto">
+                <!-- 时间轴 -->
+                <div class="flex flex-col space-y-8">
+                    <!-- 2018年 -->
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-4 h-4 rounded-full bg-tech-blue z-10"></div>
+                            <div class="timeline-line h-full mt-2"></div>
+                        </div>
+                        <div class="bg-tech-dark/80 border border-tech-blue/20 rounded-xl p-6 flex-1 card-glow">
+                            <span class="text-tech-gold font-medium">2018年 · 技术入局</span>
+                            <h3 class="text-xl font-semibold mt-2 mb-3">光固化打印设备引进与工艺调试</h3>
+                            <p class="text-tech-silver">加入德国裕克施乐参与首批大规模（120台）大尺寸光固化3D打印机引进与调试，聚焦增材制造规模化量产技术研发，奠定工业级3D打印工艺实操基础，同步参与鞋中底3D打印量产初期工艺搭建。</p>
+                        </div>
+                    </div>
+                    <!-- 2018-至今 -->
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-4 h-4 rounded-full bg-tech-blue z-10"></div>
+                            <div class="timeline-line h-full mt-2"></div>
+                        </div>
+                        <div class="bg-tech-dark/80 border border-tech-blue/20 rounded-xl p-6 flex-1 card-glow">
+                            <span class="text-tech-gold font-medium">2018-至今 · 核心量产</span>
+                            <h3 class="text-xl font-semibold mt-2 mb-3">3D打印多品类规模化量产研发</h3>
+                            <p class="text-tech-silver">全面负责光固化打印设备全流程生产管理，主导鞋中底、运动护具、医疗防护品等多品类3D打印量产，完成从设备参数调试、材料配比、工艺优化到百万级产能落地的全链路技术把控，累计完成数千批次多品类3D打印产品生产。</p>
+                        </div>
+                    </div>
+                    <!-- 行业沉淀 -->
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-4 h-4 rounded-full bg-tech-blue z-10"></div>
+                        </div>
+                        <div class="bg-tech-dark/80 border border-tech-blue/20 rounded-xl p-6 flex-1 card-glow">
+                            <span class="text-tech-gold font-medium">行业沉淀</span>
+                            <h3 class="text-xl font-semibold mt-2 mb-3">8年+增材制造实战经验</h3>
+                            <p class="text-tech-silver">针对光固化打印的翘曲、分层、精度偏差等问题制定专项解决方案；搭建多品类3D打印量产标准化SOP；参与增材制造创新中心技术研发，推动3D打印技术向多领域应用延伸。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心技术与成果区 - 统一背景 -->
+    <section id="skills" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">核心技术与成果</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 核心技术能力 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-tech-blue rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-cogs text-sm"></i>
+                        </span>
+                        核心技术能力
+                    </h3>
+                    <ul class="space-y-4 text-tech-silver">
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-tech-blue mt-1 mr-3"></i>
+                            <span>光固化3D打印机全参数调试，精准控制曝光、激光功率、升降速度等核心指标，适配0.1mm高精度层厚打印</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-tech-blue mt-1 mr-3"></i>
+                            <span>光敏树脂材料配比优化，适配鞋中底、护具、医疗品等不同品类的性能与成型要求</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-tech-blue mt-1 mr-3"></i>
+                            <span>3D打印后处理工艺优化，制定甩干、烘烤、检测标准化流程，提升产品良率与成型精度</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-tech-blue mt-1 mr-3"></i>
+                            <span>多品类3D打印量产工艺搭建，根据产品特性定制专属打印方案，实现柔性化规模生产</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check text-tech-blue mt-1 mr-3"></i>
+                            <span>工业级3D打印车间设备管理，保障多台打印设备协同运行，实现7×24小时不间断量产</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 核心行业成果 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-tech-blue rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-trophy text-sm"></i>
+                        </span>
+                        核心行业成果
+                    </h3>
+                    <ul class="space-y-4 text-tech-silver">
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-tech-gold mt-1 mr-3"></i>
+                            <span>优化光固化打印工艺，将多品类3D打印产品良品率从85%提升至95%以上，达到行业领先水平</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-tech-gold mt-1 mr-3"></i>
+                            <span>搭建百万级3D打印量产标准化SOP，单台打印设备年产能提升至1万+件，车间整体产能破百万</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-tech-gold mt-1 mr-3"></i>
+                            <span>完成鞋中底、美式橄榄球头盔护垫、医疗防护面罩等多品类3D打印量产落地，适配不同领域产品需求</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-tech-gold mt-1 mr-3"></i>
+                            <span>优化光敏树脂材料使用方案，降低材料损耗率，实现3D打印材料利用率达95%以上</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-star text-tech-gold mt-1 mr-3"></i>
+                            <span>参与应急医疗防护品3D打印量产，快速响应市场需求，完成批量防护面罩工艺落地与交付</span>
+                        </li>
                     </ul>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- 技能亮点 -->
-            <div class="mt-16 grid md:grid-cols-2 gap-8">
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-8 card-hover btn-click">
-                    <h3 class="text-2xl font-semibold mb-4 text-primary flex items-center">
-                        <i class="fa fa-lightbulb-o mr-3 text-accent"></i>
-                        工艺优化亮点
+    <!-- 核心工作内容区 - 统一背景 -->
+    <section id="work-content" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">核心工作内容</h2>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 设备与工艺管理 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-tech-blue rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-cog text-sm"></i>
+                        </span>
+                        设备与工艺管理
                     </h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        精通3D打印全流程工艺，从核心部件装配到整机调试，能够通过优化工艺流程提升生产效率与产品合格率。
-                        熟悉baumann自动化EPB流水线，可快速解决伺服电机卡顿、PLC程序报错等常见故障，降低设备停机率。
-                    </p>
+                    <ul class="space-y-4 text-tech-silver">
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>设备运维：</strong>光固化3D打印机日常校准、维护，保障设备故障率控制在5%以内，实现7×24小时连续量产</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>参数调试：</strong>根据不同品类产品需求，精准调整打印参数，保障0.1mm层厚打印精度与产品性能</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>工艺优化：</strong>针对打印缺陷制定改进方案，持续优化打印、后处理全流程工艺，提升生产效率与产品良率</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>材料管理：</strong>光敏树脂原料配比、存储与使用管控，设备液位自动补充调试，降低材料损耗</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-8 card-hover btn-click">
-                    <h3 class="text-2xl font-semibold mb-4 text-primary flex items-center">
-                        <i class="fa fa-line-chart mr-3 text-accent"></i>
-                        数据分析亮点
+
+                <!-- 量产与质量管控 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-tech-blue rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-line-chart text-sm"></i>
+                        </span>
+                        量产与质量管控
                     </h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        帆软官方认证分析师，设计80+份电子化报表及数据可视化大屏，涵盖数据预警、环境监控等功能。
-                        曾通过数据可视化优化库存管理流程，降低滞销品库存占比15%，助力公司荣获多项省级智能工厂荣誉。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 工作经历 -->
-    <section id="experience" class="py-20 bg-gradient-to-b from-dark/80 to-secondary/50 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">工作经历</h2>
-                <div class="w-20 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    11年深耕，从仓库管理到技术专家，持续聚焦智能制造与技术创新
-                </p>
-            </div>
-
-            <!-- 时间轴 -->
-            <div class="relative max-w-4xl mx-auto">
-                <!-- 时间轴主线 -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/30"></div>
-
-                <!-- 工作项1：最新 -->
-                <div class="mb-12 relative">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-                            <h3 class="text-2xl font-semibold text-primary">中航材航空技术（江苏）有限公司</h3>
-                            <p class="text-xl text-accent">工具设备管理员</p>
-                            <p class="text-gray-400 mt-2">2025.07 - 2025.11</p>
-                        </div>
-                        <div class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center btn-click">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
-                            <ul class="bg-secondary/20 backdrop-blur-sm rounded-xl p-4 space-y-2 card-hover">
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>组织校验单位资质评估</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>制定计量工具校验周期，保管校验证书</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>负责计量工具送检与取回</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>编制与管理《工具设备清单》</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>工具设备采购、收发及回收</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="space-y-4 text-tech-silver">
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>产能规划：</strong>根据多品类订单需求合理分配设备资源，保障车间百万级产能落地，产能利用率达90%+</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>质量检测：</strong>建立三级质检体系（首件检、巡检、终检），把控产品外观、精度、性能等核心指标</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>流程标准化：</strong>编写多品类3D打印量产SOP作业指导书，实现工艺标准化、可复制化</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                            <span><strong>数据管理：</strong>建立生产数据台账，实时监控设备运行与生产数据，持续优化量产方案</span>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- 工作项2：裕克施乐 -->
-                <div class="mb-12 relative">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mb-6 md:mb-0">
-                            <ul class="bg-secondary/20 backdrop-blur-sm rounded-xl p-4 space-y-2 card-hover">
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">汽车零部件制造：baumann流水线日常点检、维修、保养</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">3D打印部门：工艺优化、设备运维、规程编写</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">编写BI数据模型、电子报表，维护生产数据库</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">安排生产计划，参与智能车间建设</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center btn-click order-1 md:order-2">
-                            <i class="fa fa-industry"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-12 mt-6 md:mt-0 order-3">
-                            <h3 class="text-2xl font-semibold text-primary">裕克施乐塑料制品（太仓）有限公司</h3>
-                            <p class="text-xl text-accent">技术员</p>
-                            <p class="text-gray-400 mt-2">2016.10 - 2025.07</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 工作项3：巨龙电脑 -->
-                <div class="mb-12 relative">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
-                            <h3 class="text-2xl font-semibold text-primary">巨龙电脑科技公司</h3>
-                            <p class="text-xl text-accent">电脑维修工程师</p>
-                            <p class="text-gray-400 mt-2">2014.11 - 2016.01</p>
-                        </div>
-                        <div class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center btn-click">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-12 mt-6 md:mt-0">
-                            <ul class="bg-secondary/20 backdrop-blur-sm rounded-xl p-4 space-y-2 card-hover">
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>电脑、打印机等办公设备故障诊断与维修</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>监控系统安装、调试与维护</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>为客户提供设备使用指导与技术支持</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fa fa-check text-accent mt-1 mr-2"></i>
-                                    <span>记录设备维修情况，建立设备档案</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 工作项4：重村钢模 -->
-                <div class="relative">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mb-6 md:mb-0">
-                            <ul class="bg-secondary/20 backdrop-blur-sm rounded-xl p-4 space-y-2 card-hover">
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">负责刀具请购与分发管理</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">保障刀具供应及时合理，分发准确有序</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                                <li class="flex items-start md:justify-end">
-                                    <span class="md:order-2">每月盘点数据无误，库存准确率100%</span>
-                                    <i class="fa fa-check text-accent mt-1 mr-2 md:mr-0 md:ml-2 md:order-1"></i>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center btn-click order-1 md:order-2">
-                            <i class="fa fa-archive"></i>
-                        </div>
-                        <div class="md:w-1/2 md:pl-12 mt-6 md:mt-0 order-3">
-                            <h3 class="text-2xl font-semibold text-primary">重村钢模机械工业（苏州）有限公司</h3>
-                            <p class="text-xl text-accent">仓库管理员（实习）</p>
-                            <p class="text-gray-400 mt-2">2013.09 - 2014.11</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 荣誉成就 -->
-    <section id="achievements" class="py-20 bg-dark/80 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">荣誉成就</h2>
-                <div class="w-20 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    以技术实力赢得认可，以创新贡献获得荣誉
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 成就1 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-l-4 border-primary btn-click">
-                    <div class="text-primary text-3xl mb-3">
-                        <i class="fa fa-trophy"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">公司级表彰</h3>
-                    <p class="text-gray-300">累计获得40多份公司级个案表彰（年度表彰）</p>
-                </div>
-
-                <!-- 成就2 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-l-4 border-accent btn-click">
-                    <div class="text-accent text-3xl mb-3">
-                        <i class="fa fa-patent"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">专利申请</h3>
-                    <p class="text-gray-300">参与专利申请3份，聚焦智能制造技术创新</p>
-                </div>
-
-                <!-- 成就3 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-l-4 border-primary btn-click">
-                    <div class="text-primary text-3xl mb-3">
-                        <i class="fa fa-file-text-o"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">数据可视化成果</h3>
-                    <p class="text-gray-300">设计80+份电子化报表及数据可视化大屏，助力车间智能化</p>
-                </div>
-
-                <!-- 成就4 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-l-4 border-accent btn-click">
-                    <div class="text-accent text-3xl mb-3">
-                        <i class="fa fa-building-o"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">企业荣誉贡献</h3>
-                    <p class="text-gray-300">参与推动公司荣获「江苏省工业互联网标杆工厂」等多项省级荣誉</p>
-                </div>
-
-                <!-- 成就5 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-l-4 border-primary btn-click">
-                    <div class="text-primary text-3xl mb-3">
-                        <i class="fa fa-user-o"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">个人荣誉</h3>
-                    <p class="text-gray-300">2021年荣获「苏州市最美劳动者」称号</p>
-                </div>
-
-                <!-- 成就6 -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover border-l-4 border-accent btn-click">
-                    <div class="text-accent text-3xl mb-3">
-                        <i class="fa fa-certificate"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">专业认证</h3>
-                    <p class="text-gray-300">帆软官方认证分析师（Fine BI/Fine Report）</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 联系方式 -->
-    <section id="contact" class="py-20 bg-gradient-to-b from-dark/80 to-secondary/50 relative z-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">联系方式</h2>
-                <div class="w-20 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    期待与您携手，共同推进智能制造发展
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- 左侧：联系信息 -->
-                <div class="space-y-8">
-                    <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover">
-                        <h3 class="text-2xl font-semibold mb-6 text-primary">联系信息</h3>
-                        <ul class="space-y-4">
-                            <li class="flex items-center btn-click">
-                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
-                                    <i class="fa fa-envelope-o text-xl"></i>
-                                </div>
-                                <span>705287479@qq.com</span>
+                <!-- 多品类研发与技术支持 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow md:col-span-2">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-tech-blue rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-users text-sm"></i>
+                        </span>
+                        多品类研发与技术支持
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <ul class="space-y-4 text-tech-silver">
+                            <li class="flex items-start">
+                                <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                                <span><strong>多品类研发：</strong>主导鞋中底、运动护具、医疗防护品等产品的3D打印工艺研发，定制专属量产方案</span>
                             </li>
-                            <li class="flex items-center btn-click">
-                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
-                                    <i class="fa fa-map-marker text-xl"></i>
-                                </div>
-                                <span>江苏省苏州市（期望工作地）</span>
+                            <li class="flex items-start">
+                                <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                                <span><strong>技术培训：</strong>为生产团队提供打印设备操作与工艺培训，培养专业操作人员20+名</span>
                             </li>
-                            <li class="flex items-center btn-click">
-                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
-                                    <i class="fa fa-graduation-cap text-xl"></i>
-                                </div>
-                                <span>中央广播电视大学 · 行政管理大专</span>
+                            <li class="flex items-start">
+                                <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                                <span><strong>应急生产：</strong>快速响应应急产品3D打印需求，完成工艺落地与批量交付</span>
+                            </li>
+                        </ul>
+                        <ul class="space-y-4 text-tech-silver">
+                            <li class="flex items-start">
+                                <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                                <span><strong>客户对接：</strong>与品牌方技术团队对接，理解多品类产品需求，反馈生产工艺与产品优化建议</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                                <span><strong>技术文档：</strong>整理打印设备与多品类工艺技术资料，形成完整的技术知识库</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-angle-right text-tech-blue mt-1 mr-3"></i>
+                                <span><strong>行业交流：</strong>关注增材制造前沿技术，参与技术研发与交流，推动3D打印多领域应用</span>
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-6 card-hover">
-                        <h3 class="text-2xl font-semibold mb-4 text-primary">求职意向</h3>
-                        <p class="text-gray-300 mb-4">
-                            意向岗位：技术工/操作工（智能制造、设备维护、数据分析相关）
-                        </p>
-                        <p class="text-gray-300">
-                            期望薪资：5-15K | 期望城市：苏州 | 到岗时间：随时
-                        </p>
-                        <!-- 联系方式区域简历下载按钮 -->
-                        <div class="mt-6">
-                            <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fjerryzwj%2Fresumezhang%2Frefs%2Fheads%2Fmain%2F%25E5%25BC%25A0%25E6%2596%2587%25E5%2586%259B%25E7%25AE%2580%25E5%258E%2586.docx&wdOrigin=BROWSELINK" target="_blank" class="inline-block bg-accent hover:bg-accent/90 text-dark font-medium py-2 px-6 rounded-full transition-all shadow-lg hover:shadow-accent/30 download-btn btn-click" id="contactDownload">
-                                <i class="fa fa-download mr-2"></i> 下载完整简历
-                            </a>
+    <!-- 3D打印量产品类区 - 统一背景 -->
+    <section id="product" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">3D打印规模化量产品类</h2>
+            
+            <!-- 三个卡片并排展示 -->
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <!-- 医疗假肢&假牙 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow hover:scale-105 transition-transform">
+                    <div class="w-full h-48 rounded-lg overflow-hidden mb-6 product-img-hover">
+                        <img src="https://www.oechsler.com.cn/dist/img/teaser/Meta_%C3%96ssur.png" alt="3D打印医疗产品" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">医疗假肢 & 定制化假牙</h3>
+                    <p class="text-tech-silver text-center mb-4">个性化定制的医疗级3D打印产品</p>
+                    <ul class="text-tech-silver space-y-2 grid grid-cols-2 gap-2">
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>人体工学精准适配</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>生物相容性材料</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>轻量化高强度结构</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>快速定制化生产</li>
+                    </ul>
+                </div>
+                
+                <!-- 高性能运动鞋中底 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow hover:scale-105 transition-transform">
+                    <div class="w-full h-48 rounded-lg overflow-hidden mb-6 product-img-hover">
+                        <img src="https://pic4.zhimg.com/v2-3c8a4d0e8720cd4c90116890092570db_1440w.jpg" alt="3D打印高性能运动鞋中底" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">运动鞋中底</h3>
+                    <p class="text-tech-silver text-center mb-4">百万级规模3D打印产品</p>
+                    <ul class="text-tech-silver space-y-2">
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>晶格结构设计</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>缓震推进</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>高效量产</li>
+                    </ul>
+                </div>
+                
+                <!-- 运动装备 -->
+                <div class="bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow hover:scale-105 transition-transform">
+                    <div class="w-full h-48 rounded-lg overflow-hidden mb-6 product-img-hover">
+                        <img src="https://www.oechsler.com.cn/dist/img/teaser/Desktop-Slider-saddle.png" alt="3D打印运动类产品" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">运动装备</h3>
+                    <p class="text-tech-silver text-center mb-4">登山背包、滑雪服配件、运动头盔、自行车坐垫</p>
+                    <ul class="text-tech-silver space-y-2 grid grid-cols-2 gap-2">
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>人体工学设计</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>防撞防护</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>高强度轻量化</li>
+                        <li class="flex items-center justify-center"><i class="fa fa-check text-tech-blue mr-2"></i>透气舒适耐用</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 量产能力卡片 -->
+            <div class="max-w-6xl mx-auto bg-tech-dark/80 border border-tech-blue/30 rounded-xl p-8 card-glow">
+                <h3 class="text-xl font-semibold text-center mb-6 flex items-center justify-center">
+                    <span class="w-8 h-8 bg-tech-blue rounded-full flex items-center justify-center mr-3">
+                        <i class="fa fa-industry text-sm"></i>
+                    </span>
+                    量产能力与技术支撑
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <p class="text-3xl font-bold text-tech-gold mb-2">100+台</p>
+                        <p class="text-tech-silver">专业打印设备</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-tech-gold mb-2">100万+件/年</p>
+                        <p class="text-tech-silver">整体量产能力</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-tech-gold mb-2">0.1mm</p>
+                        <p class="text-tech-silver">打印精度</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-tech-gold mb-2">95%+</p>
+                        <p class="text-tech-silver">产品良品率</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式区 - 优化渐变过渡 -->
+    <section id="contact" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-tech-blue">合作洽谈 · 技术交流</h2>
+            <div class="max-w-2xl mx-auto bg-tech-dark/80 border border-tech-blue/40 rounded-xl p-8 card-glow">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-phone text-tech-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-tech-silver text-sm mb-1">联系电话</h4>
+                            <p class="text-xl font-medium">13016935309</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-envelope text-tech-blue text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-tech-silver text-sm mb-1">电子邮箱</h4>
+                            <p class="text-xl font-medium">admin@wenjun.eu.org</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center md:col-span-2">
+                        <div class="w-12 h-12 bg-tech-blue/20 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-weixin text-tech-blue text-xl"></i>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div>
+                                <h4 class="text-tech-silver text-sm mb-1">微信/二维码</h4>
+                                <p class="text-xl font-medium">扫码添加微信</p>
+                            </div>
+                            <div class="w-24 h-24 rounded-lg overflow-hidden">
+                                <img src="https://picui.ogmua.cn/s1/2026/03/04/69a710c886e95.webp" alt="微信二维码" class="w-full h-full object-cover">
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 右侧：联系卡片（改为直接发邮件） -->
-                <div class="bg-secondary/20 backdrop-blur-sm rounded-2xl p-8 card-hover">
-                    <h3 class="text-2xl font-semibold mb-6 text-primary text-center">发送邮件联系我</h3>
-                    <div class="space-y-6">
-                        <div class="bg-dark/40 rounded-lg p-4">
-                            <p class="text-gray-300 mb-2 flex items-center">
-                                <i class="fa fa-envelope-o text-accent mr-2"></i>
-                                邮箱地址：
-                            </p>
-                            <p class="text-light font-medium">705287479@qq.com</p>
-                        </div>
-                        
-                        <div class="bg-dark/40 rounded-lg p-4">
-                            <p class="text-gray-300 mb-2 flex items-center">
-                                <i class="fa fa-lightbulb-o text-accent mr-2"></i>
-                                建议邮件主题：
-                            </p>
-                            <p class="text-light font-medium">【招聘咨询】- 您的姓名 - 岗位名称</p>
-                        </div>
-                        
-                        <!-- 直接跳转到邮箱的按钮（修改了主题为招聘咨询） -->
-                        <a href="mailto:705287479@qq.com?subject=【招聘咨询】- 来自个人网站的联系" 
-                           class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all shadow-lg hover:shadow-primary/30 btn-click flex items-center justify-center">
-                            <i class="fa fa-paper-plane mr-2"></i>
-                            <span>打开邮箱应用发送邮件</span>
-                        </a>
-                        
-                        <p class="text-gray-400 text-sm text-center">
-                            点击按钮将自动打开您的默认邮箱应用，快速发送邮件联系我
-                        </p>
+                <div class="border-t border-tech-blue/30 pt-6">
+                    <h4 class="text-lg font-semibold mb-4">核心业务范围</h4>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <span class="bg-tech-blue/20 text-white py-2 px-4 rounded-full text-sm">打印设备工艺调试</span>
+                        <span class="bg-tech-blue/20 text-white py-2 px-4 rounded-full text-sm">3D打印多品类量产研发</span>
+                        <span class="bg-tech-blue/20 text-white py-2 px-4 rounded-full text-sm">增材制造工艺优化</span>
+                        <span class="bg-tech-blue/20 text-white py-2 px-4 rounded-full text-sm">百万级量产车间搭建</span>
+                        <span class="bg-tech-blue/20 text-white py-2 px-4 rounded-full text-sm">3D打印技术培训指导</span>
+                        <span class="bg-tech-blue/20 text-white py-2 px-4 rounded-full text-sm">应急3D打印产品落地</span>
                     </div>
                 </div>
             </div>
@@ -695,255 +551,56 @@
     </section>
 
     <!-- 页脚 -->
-    <footer class="bg-secondary/80 py-8 relative z-10">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-400">© 2025 张文军 - 智能制造技术专家</p>
-            <p class="text-gray-500 mt-2">
-                <i class="fa fa-envelope-o mr-1"></i> 705287479@qq.com | 期望城市：苏州
-            </p>
-            <!-- 页脚简历下载链接 -->
-            <p class="text-gray-400 mt-4">
-                <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fjerryzwj%2Fresumezhang%2Frefs%2Fheads%2Fmain%2F%25E5%25BC%25A0%25E6%2596%2587%25E5%2586%259B%25E7%25AE%2580%25E5%258E%2586.docx&wdOrigin=BROWSELINK" target="_blank" class="text-accent hover:text-accent/80 transition-colors btn-click" id="footerDownload">
-                    <i class="fa fa-download mr-1"></i> 下载我的简历
-                </a>
-            </p>
+    <footer class="py-6 px-4 border-t border-tech-blue/30">
+        <div class="container mx-auto text-center text-tech-silver text-sm">
+            <p>© 2026 张文军 - 3D打印技术专家 | 增材制造规模化量产 · 多品类3D打印工艺落地</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script>
-        // 导航栏滚动效果
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('py-2', 'shadow-lg');
-                navbar.classList.remove('py-3');
-            } else {
-                navbar.classList.add('py-3');
-                navbar.classList.remove('py-2', 'shadow-lg');
-            }
-            
-            // 更新滚动进度条
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
-        });
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-tech-blue rounded-full flex items-center justify-center text-white card-glow opacity-0 invisible transition-all">
+        <i class="fa fa-arrow-up"></i>
+    </button>
 
-        // 移动端菜单切换
-        document.getElementById('menuBtn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('hidden');
-            
-            // 菜单切换反馈
-            Toastify({
-                text: mobileMenu.classList.contains('hidden') ? '菜单已关闭' : '菜单已打开',
-                duration: 1500,
-                gravity: "top",
-                position: "right",
-                backgroundColor: "#165DFF",
-                className: "btn-click"
-            }).showToast();
+    <script>
+        // 回到顶部功能
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
 
         // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
+                
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
+                
                 if (targetElement) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetPosition,
                         behavior: 'smooth'
                     });
-                    // 关闭移动端菜单
-                    document.getElementById('mobileMenu').classList.add('hidden');
-                    
-                    // 滚动反馈
-                    Toastify({
-                        text: `正在前往${targetElement.querySelector('h2')?.textContent || '指定区域'}`,
-                        duration: 2000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "#36CFC9",
-                        textColor: "#121212",
-                        className: "btn-click"
-                    }).showToast();
                 }
             });
-        });
-
-        // 简历下载按钮点击反馈
-        const downloadButtons = [
-            'desktopDownload', 'mobileDownload', 'heroDownload', 
-            'contactDownload', 'footerDownload'
-        ];
-        
-        downloadButtons.forEach(id => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.addEventListener('click', function(e) {
-                    // 下载提示
-                    Toastify({
-                        text: '正在打开简历下载页面...',
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "#36CFC9",
-                        textColor: "#121212",
-                        className: "btn-click"
-                    }).showToast();
-                });
-            }
-        });
-
-        // 邮箱按钮点击反馈
-        const emailBtn = document.querySelector('a[href^="mailto:"]');
-        if (emailBtn) {
-            emailBtn.addEventListener('click', function() {
-                Toastify({
-                    text: '正在打开邮箱应用...',
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "#36CFC9",
-                    textColor: "#121212",
-                    className: "btn-click"
-                }).showToast();
-            });
-        }
-
-        // 技能分布图表（带加载动画）
-        window.addEventListener('load', function() {
-            const ctx = document.getElementById('skillsChart').getContext('2d');
-            const chartLoader = document.getElementById('chartLoader');
-            
-            // 模拟加载延迟，提升用户体验
-            setTimeout(() => {
-                new Chart(ctx, {
-                    type: 'radar',
-                    data: {
-                        labels: ['制造工艺', '数据分析', '办公自动化', '设备维护', 'PLC编程', 'CAD制图'],
-                        datasets: [{
-                            label: '技能熟练度',
-                            data: [95, 90, 85, 88, 75, 70],
-                            backgroundColor: 'rgba(22, 93, 255, 0.2)',
-                            borderColor: 'rgba(22, 93, 255, 1)',
-                            borderWidth: 2,
-                            pointBackgroundColor: 'rgba(22, 93, 255, 1)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(22, 93, 255, 1)'
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            r: {
-                                angleLines: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
-                                },
-                                grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
-                                },
-                                pointLabels: {
-                                    color: '#F5F7FA',
-                                    font: {
-                                        size: 14
-                                    }
-                                },
-                                ticks: {
-                                    color: 'rgba(255, 255, 255, 0.5)',
-                                    backdropColor: 'transparent',
-                                    stepSize: 20
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#F5F7FA'
-                                }
-                            }
-                        }
-                    }
-                });
-                
-                // 隐藏加载动画，显示图表
-                chartLoader.classList.add('opacity-0');
-                setTimeout(() => {
-                    chartLoader.classList.add('hidden');
-                    document.getElementById('skillsChart').classList.remove('opacity-0');
-                }, 500);
-                
-            }, 800);
-        });
-
-        // 滚动动画（元素进入视口时触发）
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // 为所有卡片添加初始样式和观察
-        document.querySelectorAll('.card-hover').forEach(card => {
-            card.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
-            observer.observe(card);
-        });
-
-        // 生成星空效果
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starsCount = 100;
-            
-            for (let i = 0; i < starsCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // 随机位置
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                
-                // 随机大小
-                const size = Math.random() * 3 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                
-                // 随机闪烁延迟和持续时间
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 3 + 2;
-                star.style.animationDelay = delay + 's';
-                star.style.animationDuration = duration + 's';
-                
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // 页面加载完成提示
-        window.addEventListener('load', function() {
-            // 创建星空
-            createStars();
-            
-            setTimeout(() => {
-                Toastify({
-                    text: '页面加载完成，欢迎了解我的专业背景',
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "#165DFF",
-                    className: "btn-click"
-                }).showToast();
-            }, 1000);
         });
     </script>
 </body>
